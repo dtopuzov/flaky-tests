@@ -1,0 +1,29 @@
+<html>
+
+<body onload="setTimeout(showStuff, 3000)">
+  <div class=login align=center>
+    <font size=5 face=helvetica>
+      Button with ID=button is available in DOM, but will appear after 3 seconds.<br>
+      New paragraph element is not available in DOM initially, but will be added after 3 seconds.<br>
+    </font>
+    <input id="button" type=submit value="OK">
+    <div id="div"></div>
+    <script>
+      document.getElementById("button").style.display = "none";
+
+      function showStuff() {
+        document.getElementById("button").style.display = "inline";
+        addItem();
+      }
+
+      function addItem() {
+        const para = document.createElement("p");
+        const node = document.createTextNode("This is a paragraph.");
+        para.appendChild(node);
+        document.getElementById("div").appendChild(para);
+      }
+    </script>
+  </div>
+</body>
+
+</html>
