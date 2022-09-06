@@ -1,0 +1,40 @@
+<html>
+
+<body>
+  <h3>Click "Play" to move the box</h3>
+  <div class='box'></div>
+  <button id='play' value='play'>Play</button>
+</body>
+<style>
+      .box {
+        margin: 30px;
+        height: 50px;
+        width: 50px;
+        background-color: blue;
+      }
+      .box.horizTranslate {
+        -webkit-transition: 5s;
+        -moz-transition: 5s;
+        -ms-transition: 5s;
+        -o-transition: 5s;
+        transition: 5s;
+        margin-left: 50% !important;
+      }
+</style>
+<script>
+    var boxOne = document.querySelector('.box');
+    document.getElementById('play').onclick = function() {
+      if(this.innerHTML === 'Play')
+      {
+        this.innerHTML = 'Pause';
+        boxOne.classList.add('horizTranslate');
+      } else {
+        this.innerHTML = 'Play';
+        var computedStyle = window.getComputedStyle(boxOne),
+            marginLeft = computedStyle.getPropertyValue('margin-left');
+        boxOne.style.marginLeft = marginLeft;
+        boxOne.classList.remove('horizTranslate');
+      }
+    }
+</script>
+</html>
