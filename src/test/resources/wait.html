@@ -1,17 +1,25 @@
 <html>
 
-<body onload="setTimeout(showStuff, 3000)">
-  <div class=login align=center>
+<body onload="setTimeout(showStuff, 2000)">
+  <div align=center>
     <font size=5 face=helvetica>
-      Button with ID=button is available in DOM, but will appear after 3 seconds.<br>
-      New paragraph element is not available in DOM initially, but will be added after 3 seconds.<br>
+      Input with ID=disabled is available in DOM, but will be enabled after 2 seconds.
+      <br>
+      Input with ID=button is available in DOM, but will appear after 2 seconds.
+      <br>
+      New paragraph element is not available in DOM initially, but will be added after 2 seconds.
+      <br>
     </font>
+    <input id="disabled" type=submit value="Disabled">
     <input id="button" type=submit value="OK">
     <div id="div"></div>
     <script>
+      document.getElementById("disabled").disabled = true;
       document.getElementById("button").style.display = "none";
 
       function showStuff() {
+        document.getElementById("disabled").disabled = false;
+        document.getElementById("disabled").value = "Enabled";
         document.getElementById("button").style.display = "inline";
         addItem();
       }

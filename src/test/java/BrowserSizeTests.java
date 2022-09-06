@@ -52,6 +52,7 @@ public class BrowserSizeTests {
         // Let's have the test above, but skip headless flag.
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--window-size=1366,768");
+        chromeOptions.addArguments("--force-device-scale-factor=1");
 
         WebDriver driver = new ChromeDriver(chromeOptions);
         driver.navigate().to("https://www.wikipedia.org/");
@@ -62,11 +63,9 @@ public class BrowserSizeTests {
 
         driver.quit();
 
-        Assertions.assertEquals(1366, size.width);
-        Assertions.assertEquals(768, size.height);
-
-        // In this case viewport is not 768, this is all the height including browser toolbar at the top.
+        // Total height of browser window (viewport + toolbars) is 768.
         // View port is less, how much less depends on browser type and version.
+        Assertions.assertEquals(768, size.height);
         Assertions.assertTrue(768 > viewportHeight);
     }
 

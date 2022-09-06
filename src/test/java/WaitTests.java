@@ -53,9 +53,9 @@ public class WaitTests {
 
     @Test
     public void neverUseThreadSleep() throws InterruptedException {
-        Thread.sleep(5000);
+        Thread.sleep(3000);
         // What if element is displayed after 6000ms -> throw
-        // What if element is displayed after 1000ms -> your test will be 4000ms slower than needed.
+        // What if element is displayed after 1000ms -> your test will be 2000ms slower than needed.
         WebElement button = driver.findElement(By.cssSelector("#div p"));
         Assertions.assertTrue(button.isDisplayed());
     }
@@ -99,7 +99,7 @@ public class WaitTests {
 
     @Test
     public void explicitWaitWillAlsoWorkIfElementIsInDomAndYouWantToWaitUntilItChangeStateToBeVisible() {
-        // Button with ID=button is available in DOM since the beginning, but will appear after 3 seconds.
+        // Input with ID=button is available in DOM since the beginning, but will appear after 3 seconds.
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         // presenceOfElementLocated will immediately return the element, but will not wait to be visible
@@ -107,6 +107,19 @@ public class WaitTests {
         // "visibilityOfElementLocated" will wait not only to be available in dom, but also to be displayed
         WebElement paragraph = wait.until(ExpectedConditions.visibilityOfElementLocated((By.id("button"))));
         Assertions.assertTrue(paragraph.isDisplayed());
+    }
+
+    @Test
+    public void waitForClickable() {
+        // Initially element is displayed, but disabled.
+        WebElement disabledInput = driver.findElement(By.id("disabled"));
+        Assertions.assertTrue(disabledInput.isDisplayed());
+        Assertions.assertFalse(disabledInput.isEnabled());
+
+         // Wait until it is clickable (enabled)
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(disabledInput));
+        Assertions.assertTrue(disabledInput.isEnabled());
     }
 
     @Test
